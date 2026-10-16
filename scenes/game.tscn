@@ -1,3 +1,35 @@
 [gd_scene format=3 uid="uid://cp606m0pi6otd"]
 
+[ext_resource type="Script" uid="uid://bsegycnv2pk7l" path="res://scenes/camera_3d.gd" id="1_lbhrr"]
+[ext_resource type="MeshLibrary" uid="uid://b66j80a7cfisw" path="res://tiles.tres" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://f62e3olgdhj0" path="res://ball.tscn" id="2_lnu2h"]
+[ext_resource type="Script" uid="uid://ba6y8kmso6sac" path="res://ball.gd" id="3_lbhrr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jpnr3"]
+
 [node name="Game" type="Node3D" unique_id=559845273]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2067873603]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 6.995426, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1494349623 node_paths=PackedStringArray("ball")]
+transform = Transform3D(0.9997846, -0.015579243, 0.013713058, -0.008562753, 0.2922451, 0.95630515, -0.018906081, -0.9562165, 0.29204875, 2.5206137, 10.704069, 2.7963443)
+fov = 35.0
+script = ExtResource("1_lbhrr")
+ball = NodePath("../Ball")
+offset = Vector3(1, 1, 0)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=383737684]
+mesh_library = ExtResource("1_uwrxv")
+cell_size = Vector3(1, 1, 1)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(0, 1, 104, 0, 0, 105, 0, 65535, 105, 0, 65534, 105, 0, 65533, 105, 0, 65532, 655406, 1, 65532, 1441825, 2, 65532, 1441825, 3, 65532, 1441825, 4, 65532, 1441912, 5, 65532, 1441823, 6, 65532, 1441913, 7, 65532, 1441797, 8, 65532, 1048603)
+}
+
+[node name="Ball" parent="." unique_id=787226699 node_paths=PackedStringArray("camera") instance=ExtResource("2_lnu2h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53612924, 0.19844541, 1.2334372)
+physics_material_override = SubResource("PhysicsMaterial_jpnr3")
+script = ExtResource("3_lbhrr")
+camera = NodePath("../Camera3D")
